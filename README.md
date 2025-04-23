@@ -30,6 +30,21 @@ The stack uses local storage volumes for persistence:
 - MinIO data: `/storage/observability/minio/data`
 - Loki data: `/storage/observability/loki`
 
+A setup script is provided to create or recreate these directories:
+```bash
+# Create directories with default path (/storage/observability)
+./scripts/setup_storage.sh
+
+# Specify a custom base path
+./scripts/setup_storage.sh /path/to/custom/storage
+
+# Delete existing data and recreate directories (will prompt for confirmation)
+./scripts/setup_storage.sh --recreate
+
+# Delete existing data at custom path and recreate directories
+./scripts/setup_storage.sh /path/to/custom/storage --recreate
+```
+
 ## Configuration
 
 Configuration files are stored in the `config` directory:
@@ -52,9 +67,12 @@ A pre-configured Grafana dashboard is provided in `grafana-dashboard.json`.
 ## Getting Started
 
 1. Ensure Docker and Docker Compose are installed
-2. Create the required storage directories
-3. Run the stack with:
+2. Create the required storage directories:
+   ```bash
+   ./scripts/setup_storage.sh
    ```
+3. Run the stack with:
+   ```bash
    docker-compose up -d
    ```
 4. Access Grafana at http://localhost:3000
